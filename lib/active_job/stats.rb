@@ -26,7 +26,9 @@ module ActiveJob
       configuration.reporter
     end
   end
+end
 
-  Base.send :include, Stats::Callbacks
-  Base.send :extend, Stats::Options
+ActiveSupport.on_load(:active_job) do
+  include ActiveJob::Stats::Callbacks
+  extend ActiveJob::Stats::Options
 end
