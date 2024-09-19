@@ -14,7 +14,7 @@ module ActiveJob
 
         def benchmark_stats
           require 'active_support/core_ext/benchmark'
-          benchmark = Benchmark.ms { yield }
+          benchmark =  ActiveSupport::Benchmark.realtime(:float_millisecond) { yield }
           ActiveJob::Stats.reporter.timing("#{queue_name}.processed", benchmark)
           ActiveJob::Stats.reporter.timing("#{self.class}.processed", benchmark)
           ActiveJob::Stats.reporter.timing("#{self.class}.#{ENV['RAILS_ENV']}.processed", benchmark)
